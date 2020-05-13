@@ -42,7 +42,7 @@ async function createRelease(user, password, tagName, title, body, prerelease, c
     };
 
     const headers = {
-        "User-Agent": "ddamchain",
+        // "User-Agent": "ddamchain",
     };
 
     const result = await fetchJson({

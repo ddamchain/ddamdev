@@ -4820,7 +4820,7 @@ var lib_esm$2 = /*#__PURE__*/Object.freeze({
 	Description: Description
 });
 
-const version$4 = "abi/1.0.0-alpha";
+const version$4 = "abi/1.0.0-beta.0";
 
 "use strict";
 const logger$4 = new Logger(version$4);
@@ -6332,7 +6332,7 @@ var index = /*#__PURE__*/Object.freeze({
 	decode: decode
 });
 
-const version$6 = "address/1.0.0-alpha";
+const version$6 = "address/1.0.0-beta.0";
 
 "use strict";
 const logger$7 = new Logger(version$6);
@@ -8159,7 +8159,7 @@ class VoidSigner extends Signer {
     }
 }
 
-const version$b = "contracts/1.0.0-alpha";
+const version$b = "contracts/1.0.0-beta.0";
 
 "use strict";
 var __awaiter$2 = (window && window.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -16336,7 +16336,7 @@ var utils$1 = /*#__PURE__*/Object.freeze({
 	Indexed: Indexed
 });
 
-const version$l = "ddamers/1.0.0-alpha";
+const version$l = "ddamers/1.0.0-beta.0";
 
 "use strict";
 const logger$q = new Logger(version$l);

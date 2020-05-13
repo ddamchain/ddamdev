@@ -44,7 +44,7 @@ ABIEncoder testcase numberish Wordlist
 // Common Code Strings
 abi addr api app arg arrayify asm basex bigint bn byte bytecode
 callback calldata checksum ciphertext cli codepoint config
-contenthash ctr ctrl debug dd dklen eexist encseed eof ethaddr
+contenthash ctr ctrl debug dd ddamers dklen eexist encseed eof ethaddr
 ethseed ethers eval exec filename func gz hid http https hw iv
 info init ipc json kdf kdfparams labelhash lang lib mm multihash nfc
 nfkc nfd nfkd nodehash oob opcode pbkdf pc plugin pragma pre prf
@@ -184,7 +184,7 @@ function starts(text, prefix) {
             if (value === "") { return; }
 
             // Prolly a require
-            if (value.match(/^@ddamdev\/[a-z0-9-]+$/)) { return; }
+            if (value.match(/^@(ethersproject|ddamdev)\/[a-z0-9-]+$/)) { return; }
             if (value.substring(0, 2) === "./") { return; }
 
             // Prolly encoded binary data

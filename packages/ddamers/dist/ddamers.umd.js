@@ -4998,7 +4998,7 @@
 	var _version$8 = createCommonjsModule(function (module, exports) {
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.version = "abi/1.0.0-alpha";
+	exports.version = "abi/1.0.0-beta.0";
 	});
 
 	var _version$9 = unwrapExports(_version$8);
@@ -6632,7 +6632,7 @@
 	var _version$c = createCommonjsModule(function (module, exports) {
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.version = "address/1.0.0-alpha";
+	exports.version = "address/1.0.0-beta.0";
 	});
 
 	var _version$d = unwrapExports(_version$c);
@@ -9173,7 +9173,7 @@
 	var _version$m = createCommonjsModule(function (module, exports) {
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.version = "contracts/1.0.0-alpha";
+	exports.version = "contracts/1.0.0-beta.0";
 	});
 
 	var _version$n = unwrapExports(_version$m);
@@ -18096,7 +18096,7 @@
 	var _version$K = createCommonjsModule(function (module, exports) {
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.version = "ddamers/1.0.0-alpha";
+	exports.version = "ddamers/1.0.0-beta.0";
 	});
 
 	var _version$L = unwrapExports(_version$K);
