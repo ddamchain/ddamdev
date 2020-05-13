@@ -1,0 +1,57 @@
+{
+  "author": "fuzzy <isee.tseng@hotmail.com>",
+  "browser": "./dist/ddamers.umd.js",
+  "dependencies": {
+    "@ddamdev/abi": ">=1.0.0-alpha",
+    "@ddamdev/address": ">=1.0.0-alpha",
+    "@ddamdev/contracts": ">=1.0.0-alpha",
+    "@ethersproject/abstract-provider": ">=5.0.0-beta.139",
+    "@ethersproject/abstract-signer": ">=5.0.0-beta.142",
+    "@ethersproject/base64": ">=5.0.0-beta.133",
+    "@ethersproject/bignumber": ">=5.0.0-beta.138",
+    "@ethersproject/bytes": ">=5.0.0-beta.137",
+    "@ethersproject/constants": ">=5.0.0-beta.133",
+    "@ethersproject/hash": ">=5.0.0-beta.133",
+    "@ethersproject/hdnode": ">=5.0.0-beta.139",
+    "@ethersproject/json-wallets": ">=5.0.0-beta.138",
+    "@ethersproject/keccak256": ">=5.0.0-beta.132",
+    "@ethersproject/logger": ">=5.0.0-beta.137",
+    "@ethersproject/networks": ">=5.0.0-beta.136",
+    "@ethersproject/pbkdf2": ">=5.0.0-beta.135",
+    "@ethersproject/properties": ">=5.0.0-beta.140",
+    "@ethersproject/providers": ">=5.0.0-beta.166",
+    "@ethersproject/random": ">=5.0.0-beta.135",
+    "@ethersproject/rlp": ">=5.0.0-beta.132",
+    "@ethersproject/sha2": ">=5.0.0-beta.136",
+    "@ethersproject/signing-key": ">=5.0.0-beta.135",
+    "@ethersproject/solidity": ">=5.0.0-beta.131",
+    "@ethersproject/strings": ">=5.0.0-beta.136",
+    "@ethersproject/transactions": ">=5.0.0-beta.135",
+    "@ethersproject/units": ">=5.0.0-beta.132",
+    "@ethersproject/wallet": ">=5.0.0-beta.140",
+    "@ethersproject/web": ">=5.0.0-beta.138",
+    "@ethersproject/wordlists": ">=5.0.0-beta.136"
+  },
+  "description": "Umbrella package for most common DDAM libraries.",
+  "keywords": [
+    "DDAMChain",
+    "libraries"
+  ],
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "module": "./dist/ddamers.esm.js",
+  "name": "ddamers",
+  "publishConfig": {
+    "tag": "next"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ddamchain/ddamdev.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "tarballHash": "0x0322350ba38f67004e4c06edd2e1d6be942e818af5f8783489657ec3a658bf26",
+  "types": "./lib/index.d.ts",
+  "version": "1.0.0-alpha"
+}

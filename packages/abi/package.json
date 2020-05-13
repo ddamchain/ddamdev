@@ -1,0 +1,36 @@
+{
+  "author": "fuzzy <isee.tseng@hotmail.com>",
+  "dependencies": {
+    "@ddamdev/address": ">=1.0.0-alpha",
+    "@ethersproject/bignumber": ">=5.0.0-beta.138",
+    "@ethersproject/bytes": ">=5.0.0-beta.137",
+    "@ethersproject/constants": ">=5.0.0-beta.133",
+    "@ethersproject/hash": ">=5.0.0-beta.133",
+    "@ethersproject/keccak256": ">=5.0.0-beta.132",
+    "@ethersproject/logger": ">=5.0.0-beta.137",
+    "@ethersproject/properties": ">=5.0.0-beta.140",
+    "@ethersproject/strings": ">=5.0.0-beta.136"
+  },
+  "description": "Utilities and Classes for parsing, formatting and managing DDAM ABIs.",
+  "keywords": [
+    "DDAMChain",
+    "ABI"
+  ],
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "module": "./lib.esm/index.js",
+  "name": "@ddamdev/abi",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ddamchain/ddamdev.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "tarballHash": "0xe924fce593ac7df59998bed8731e0e021a40ad716b04f2cae8dd8862aec5ec2f",
+  "types": "./lib/index.d.ts",
+  "version": "1.0.0-alpha"
+}

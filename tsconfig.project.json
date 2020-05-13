@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es2015",
+      "es5",
+      "dom"
+    ],
+    "preserveWatchOutput": true,
+    "pretty": false
+  },
+  "references": [
+    {
+      "path": "./packages/address"
+    },
+    {
+      "path": "./packages/abi"
+    },
+    {
+      "path": "./packages/contracts"
+    },
+    {
+      "path": "./packages/ddamers"
+    },
+    {
+      "path": "./packages/tests"
+    }
+  ],
+  "files": []
+}

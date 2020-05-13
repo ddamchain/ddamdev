@@ -1,0 +1,45 @@
+{
+  "author": "fuzzy <isee.tseng@hotmail.com>",
+  "browser": {
+    "ddamers": "./lib/browser-ddamers.js"
+  },
+  "browser.esm": {
+    "ddamers": "./lib.esm/browser-ddamers.js"
+  },
+  "browser.umd": {
+    "ddamers": "./lib/browser-ddamers.js"
+  },
+  "dependencies": {
+    "@ethersproject/cli": ">=5.0.0-beta.155",
+    "@ethersproject/testcases": ">=5.0.0-beta.140",
+    "@types/mocha": "^5.2.0",
+    "ddamers": ">=1.0.0-alpha",
+    "ethers": ">=5.0.0-beta.186"
+  },
+  "description": "Testing package for DDAM.",
+  "devDependencies": {
+    "browserify": "16.2.3",
+    "mocha": "^7.1.1"
+  },
+  "keywords": [
+    "DDAMChain",
+    "libraries"
+  ],
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "module": "./lib.esm/index.js",
+  "name": "@ddamdev/tests",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ddamchain/ddamdev.git"
+  },
+  "scripts": {
+    "test": "exit 1"
+  },
+  "tarballHash": "0xd376411700f270d3bef8837333d831efed0832751be45038c5bf9a61f3580fd4",
+  "types": "./lib/index.d.ts",
+  "version": "1.0.0-alpha"
+}
