@@ -127,7 +127,7 @@ function getChanges() {
 function latestChange() {
     const recent = getChanges()[0];
 
-    const match = recent.title.match(/ethers\/([^\(]*)\(([^\)]*)\)/);
+    const match = recent.title.match(/ddamers\/([^\(]*)\(([^\)]*)\)/);
 
     return {
         title: recent.title,
