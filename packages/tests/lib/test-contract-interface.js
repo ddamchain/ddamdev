@@ -3,11 +3,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var fs_1 = __importDefault(require("fs"));
+var path_1 = __importDefault(require("path"));
+var browserify_zlib_1 = __importDefault(require("browserify-zlib"));
 var assert_1 = __importDefault(require("assert"));
-var ethers_1 = require("ethers");
-var ddamers = ethers_1.ethers;
-var testcases_1 = require("@ethersproject/testcases");
-var bnify = ddamers.BigNumber.from;
+var ddamers_1 = require("ddamers");
+function loadTests(tag) {
+    var filename = path_1.default.resolve(__dirname, '../testcases', tag + '.json.gz');
+    return JSON.parse(browserify_zlib_1.default.gunzipSync(fs_1.default.readFileSync(filename)).toString());
+}
+var bnify = ddamers_1.ddamers.BigNumber.from;
 function equals(actual, expected) {
     // Array (treat recursively)
     if (Array.isArray(actual)) {
@@ -46,10 +51,10 @@ function equals(actual, expected) {
     }
     // Uint8Array
     if (expected.buffer) {
-        if (!ddamers.utils.isHexString(actual)) {
+        if (!ddamers_1.ddamers.utils.isHexString(actual)) {
             return false;
         }
-        actual = ddamers.utils.arrayify(actual);
+        actual = ddamers_1.ddamers.utils.arrayify(actual);
         if (!actual.buffer || actual.length !== expected.length) {
             return false;
         }
@@ -62,8 +67,8 @@ function equals(actual, expected) {
     }
     // Maybe address?
     try {
-        var actualAddress = ddamers.utils.getAddress(actual);
-        var expectedAddress = ddamers.utils.getAddress(expected);
+        var actualAddress = ddamers_1.ddamers.utils.getAddress(actual);
+        var expectedAddress = ddamers_1.ddamers.utils.getAddress(expected.toLowerCase());
         return (actualAddress === expectedAddress);
     }
     catch (error) { }
@@ -85,7 +90,7 @@ function getValues(object, named) {
         case 'string':
             return object.value;
         case 'buffer':
-            return ddamers.utils.arrayify(object.value);
+            return ddamers_1.ddamers.utils.arrayify(object.value);
         case 'tuple':
             var result = getValues(object.value, named);
             if (named) {
@@ -101,8 +106,8 @@ function getValues(object, named) {
     }
 }
 describe('ABI Coder Encoding', function () {
-    var coder = ddamers.utils.defaultAbiCoder;
-    var tests = testcases_1.loadTests('contract-interface');
+    var coder = ddamers_1.ddamers.utils.defaultAbiCoder;
+    var tests = loadTests('contract-interface');
     tests.forEach(function (test) {
         var values = getValues(JSON.parse(test.normalizedValues));
         var types = JSON.parse(test.types);
@@ -116,8 +121,8 @@ describe('ABI Coder Encoding', function () {
     });
 });
 describe('ABI Coder Decoding', function () {
-    var coder = ddamers.utils.defaultAbiCoder;
-    var tests = testcases_1.loadTests('contract-interface');
+    var coder = ddamers_1.ddamers.utils.defaultAbiCoder;
+    var tests = loadTests('contract-interface');
     tests.forEach(function (test) {
         var values = getValues(JSON.parse(test.normalizedValues));
         var types = JSON.parse(test.types);
@@ -131,8 +136,8 @@ describe('ABI Coder Decoding', function () {
     });
 });
 describe('ABI Coder ABIv2 Encoding', function () {
-    var coder = ddamers.utils.defaultAbiCoder;
-    var tests = testcases_1.loadTests('contract-interface-abi2');
+    var coder = ddamers_1.ddamers.utils.defaultAbiCoder;
+    var tests = loadTests('contract-interface-abi2');
     tests.forEach(function (test) {
         var values = getValues(JSON.parse(test.values));
         //let namedValues = getValues(JSON.parse(test.values), true);
@@ -149,8 +154,8 @@ describe('ABI Coder ABIv2 Encoding', function () {
     });
 });
 describe('ABI Coder ABIv2 Decoding', function () {
-    var coder = ddamers.utils.defaultAbiCoder;
-    var tests = testcases_1.loadTests('contract-interface-abi2');
+    var coder = ddamers_1.ddamers.utils.defaultAbiCoder;
+    var tests = loadTests('contract-interface-abi2');
     tests.forEach(function (test) {
         var values = getValues(JSON.parse(test.values));
         var types = JSON.parse(test.types);
@@ -164,11 +169,11 @@ describe('ABI Coder ABIv2 Decoding', function () {
     });
 });
 describe('Test Contract Events', function () {
-    var tests = testcases_1.loadTests('contract-events');
+    var tests = loadTests('contract-events');
     tests.forEach(function (test, index) {
         it(('decodes event parameters - ' + test.name + ' - ' + test.types), function () {
             this.timeout(120000);
-            var iface = new ddamers.utils.Interface(test.interface);
+            var iface = new ddamers_1.ddamers.utils.Interface(test.interface);
             var parsed = iface.decodeEventLog(iface.getEvent("testEvent"), test.data, test.topics);
             test.normalizedValues.forEach(function (expected, index) {
                 if (test.hashed[index]) {
@@ -183,11 +188,11 @@ describe('Test Contract Events', function () {
     tests.forEach(function (test, index) {
         it(('decodes event data - ' + test.name + ' - ' + test.types), function () {
             this.timeout(120000);
-            var iface = new ddamers.utils.Interface(test.interface);
+            var iface = new ddamers_1.ddamers.utils.Interface(test.interface);
             var parsed = iface.decodeEventLog(iface.getEvent("testEvent"), test.data);
             test.normalizedValues.forEach(function (expected, index) {
                 if (test.indexed[index]) {
-                    assert_1.default.ok((ddamers.Contract.isIndexed(parsed[index]) && parsed[index].hash == null), 'parsed event data has empty Indexed - ' + index);
+                    assert_1.default.ok((ddamers_1.ddamers.Contract.isIndexed(parsed[index]) && parsed[index].hash == null), 'parsed event data has empty Indexed - ' + index);
                 }
                 else {
                     assert_1.default.ok(equals(parsed[index], expected), 'parsed event data matches - ' + index);
@@ -197,17 +202,17 @@ describe('Test Contract Events', function () {
     });
 });
 describe('Test Interface Signatures', function () {
-    var tests = testcases_1.loadTests('contract-signatures');
+    var tests = loadTests('contract-signatures');
     tests.forEach(function (test) {
         it('derives the correct signature - ' + test.name, function () {
-            var iface = new ddamers.utils.Interface(test.abi);
+            var iface = new ddamers_1.ddamers.utils.Interface(test.abi);
             this.timeout(120000);
             assert_1.default.equal(iface.getFunction("testSig").format(), test.signature, 'derived the correct signature');
             assert_1.default.equal(iface.getSighash(iface.getFunction("testSig")), test.sigHash, 'derived the correct signature hash');
         });
     });
     it('derives correct description for human-readable ABI', function () {
-        var iface = new ddamers.utils.Interface(["function transfer(address from, uint amount)"]);
+        var iface = new ddamers_1.ddamers.utils.Interface(["function transfer(address from, uint amount)"]);
         [
             "transfer",
             "transfer(address,uint256)"
@@ -220,12 +225,12 @@ describe('Test Interface Signatures', function () {
     });
     // See: https://github.com/ddamers-io/ddamers.js/issues/370
     it('parses transaction function', function () {
-        var iface = new ddamers.utils.Interface(["function transfer(address from, uint amount)"]);
+        var iface = new ddamers_1.ddamers.utils.Interface(["function transfer(address from, uint amount)"]);
         // Transaction: 0x820cc57bc77be44d8f4f024a18e18f64a8b6e62a82a3d7897db5970dbe181ba1
         var rawTx = "0xf8aa028502540be4008316e36094334eec1482109bd802d9e72a447848de3bcc106380b844a9059cbb000000000000000000000000851b9167b7cbf772d38efaf89705b35022880a070000000000000000000000000000000000000000000000000de0b6b3a764000026a03200bf26e5f10f7eda59c0aad9adc2334dda79e785b9b004342524d97a66fca9a0450b07a4dc450bb472e08f8370350fa365fcef6db1a95309ae4c06c9d0748092";
-        var tx = ddamers.utils.parseTransaction(rawTx);
+        var tx = ddamers_1.ddamers.utils.parseTransaction(rawTx);
         var descr = iface.parseTransaction(tx);
-        assert_1.default.equal(descr.args[0], '0x851b9167B7cbf772D38eFaf89705b35022880A07', 'parsed tx - args[0]');
+        assert_1.default.equal(descr.args[0], '0x000000000000000000000000851b9167b7cbf772d38efaf89705b35022880a07', 'parsed tx - args[0]');
         assert_1.default.equal(descr.args[1].toString(), '1000000000000000000', 'parsed tx - args[1]');
         assert_1.default.equal(descr.name, 'transfer', 'parsed tx - name');
         assert_1.default.equal(descr.signature, 'transfer(address,uint256)', 'parsed tx - signature');
@@ -234,7 +239,7 @@ describe('Test Interface Signatures', function () {
     });
 });
 describe('Test Number Coder', function () {
-    var coder = ddamers.utils.defaultAbiCoder;
+    var coder = ddamers_1.ddamers.utils.defaultAbiCoder;
     it('null input failed', function () {
         this.timeout(120000);
         assert_1.default.throws(function () {
@@ -263,7 +268,7 @@ describe('Test Number Coder', function () {
             { n: 'hex zero', v: '0x0' },
             { n: 'hex leading even length', v: '0x0000' },
             { n: 'hex leading odd length', v: '0x00000' },
-            { n: 'BigNumber', v: ddamers.constants.Zero }
+            { n: 'BigNumber', v: ddamers_1.ddamers.constants.Zero }
         ];
         var expected = zeroHex;
         ['uint8', 'uint256', 'int8', 'int256'].forEach(function (type) {
@@ -279,7 +284,7 @@ describe('Test Number Coder', function () {
             { n: 'hex', v: '0x1' },
             { n: 'hex leading even length', v: '0x0001' },
             { n: 'hex leading odd length', v: '0x00001' },
-            { n: 'BigNumber', v: ddamers.constants.One }
+            { n: 'BigNumber', v: ddamers_1.ddamers.constants.One }
         ];
         var expected = oneHex;
         ['uint8', 'uint256', 'int8', 'int256'].forEach(function (type) {
@@ -295,7 +300,7 @@ describe('Test Number Coder', function () {
             { n: 'hex', v: '-0x1' },
             { n: 'hex leading even length', v: '-0x0001' },
             { n: 'hex leading odd length', v: '-0x00001' },
-            { n: 'BigNumber', v: ddamers.constants.NegativeOne }
+            { n: 'BigNumber', v: ddamers_1.ddamers.constants.NegativeOne }
         ];
         var expected = maxHex;
         ['int8', 'int256'].forEach(function (type) {
@@ -308,7 +313,7 @@ describe('Test Number Coder', function () {
     it('encodes full uint8 range', function () {
         for (var i = 0; i < 256; i++) {
             var expected = '0x00000000000000000000000000000000000000000000000000000000000000';
-            expected += ddamers.utils.hexlify(i).substring(2);
+            expected += ddamers_1.ddamers.utils.hexlify(i).substring(2);
             var result = coder.encode(['uint8'], [i]);
             assert_1.default.equal(result, expected, 'int8 ' + i);
         }
@@ -321,11 +326,11 @@ describe('Test Number Coder', function () {
             }
             else if (i < 0) {
                 expected = '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff';
-                expected += ddamers.utils.hexlify(256 + i).substring(2);
+                expected += ddamers_1.ddamers.utils.hexlify(256 + i).substring(2);
             }
             else {
                 expected = '0x00000000000000000000000000000000000000000000000000000000000000';
-                expected += ddamers.utils.hexlify(i).substring(2);
+                expected += ddamers_1.ddamers.utils.hexlify(i).substring(2);
             }
             var result = coder.encode(['int8'], [i]);
             assert_1.default.equal(result, expected, 'int8 ' + i);
@@ -387,7 +392,7 @@ describe('Test Number Coder', function () {
     });
 });
 describe('Test Fixed Bytes Coder', function () {
-    var coder = ddamers.utils.defaultAbiCoder;
+    var coder = ddamers_1.ddamers.utils.defaultAbiCoder;
     var zeroHex = '0x0000000000000000000000000000000000000000000000000000000000000000';
     it('fails to encode out-of-range bytes4', function () {
         ['0x', '0x00000', '0x000', zeroHex, '0x12345', '0x123456', '0x123', '0x12'].forEach(function (value, index) {
@@ -447,7 +452,7 @@ describe("Test ParamType Parser", function () {
     ];
     Tests.forEach(function (test) {
         it("allows correct modifiers " + JSON.stringify(test.type), function () {
-            var paramType = ddamers.utils.ParamType.from(test.type);
+            var paramType = ddamers_1.ddamers.utils.ParamType.from(test.type);
             //console.log(test, paramType.format("full"));
             assert_1.default.equal(paramType.format("full"), test.format);
         });

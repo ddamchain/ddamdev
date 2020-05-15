@@ -17,7 +17,6 @@ function getChecksumAddress(address: string): string {
         logger.throwArgumentError("invalid address", "address", address);
     }
 
-    address = address.toLowerCase();
     return "0x" + address.substring(2);
 }
 

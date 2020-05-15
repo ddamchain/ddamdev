@@ -6332,7 +6332,7 @@ var index = /*#__PURE__*/Object.freeze({
 	decode: decode
 });
 
-const version$6 = "address/1.0.0-beta.0";
+const version$6 = "address/1.0.0-alpha.0";
 
 "use strict";
 const logger$7 = new Logger(version$6);
@@ -6340,7 +6340,6 @@ function getChecksumAddress(address) {
     if (!isHexString(address, 32)) {
         logger$7.throwArgumentError("invalid address", "address", address);
     }
-    address = address.toLowerCase();
     return "0x" + address.substring(2);
 }
 // Shims for environments that are missing some required constants and functions
@@ -16336,7 +16335,7 @@ var utils$1 = /*#__PURE__*/Object.freeze({
 	Indexed: Indexed
 });
 
-const version$l = "ddamers/1.0.0-beta.0";
+const version$l = "ddamers/1.0.0-alpha.0";
 
 "use strict";
 const logger$q = new Logger(version$l);

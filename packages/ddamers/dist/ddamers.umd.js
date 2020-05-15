@@ -6632,7 +6632,7 @@
 	var _version$c = createCommonjsModule(function (module, exports) {
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.version = "address/1.0.0-beta.0";
+	exports.version = "address/1.0.0-alpha.0";
 	});
 
 	var _version$d = unwrapExports(_version$c);
@@ -6654,7 +6654,6 @@
 	    if (!lib$1.isHexString(address, 32)) {
 	        logger.throwArgumentError("invalid address", "address", address);
 	    }
-	    address = address.toLowerCase();
 	    return "0x" + address.substring(2);
 	}
 	// Shims for environments that are missing some required constants and functions
@@ -18096,7 +18095,7 @@
 	var _version$K = createCommonjsModule(function (module, exports) {
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.version = "ddamers/1.0.0-beta.0";
+	exports.version = "ddamers/1.0.0-alpha.0";
 	});
 
 	var _version$L = unwrapExports(_version$K);

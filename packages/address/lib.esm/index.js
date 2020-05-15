@@ -12,7 +12,6 @@ function getChecksumAddress(address) {
     if (!isHexString(address, 32)) {
         logger.throwArgumentError("invalid address", "address", address);
     }
-    address = address.toLowerCase();
     return "0x" + address.substring(2);
 }
 // Shims for environments that are missing some required constants and functions

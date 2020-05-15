@@ -1,8 +1,13 @@
 'use strict';
+import fs from 'fs';
+import path from 'path';
+import zlib from 'browserify-zlib';
 import assert from "assert";
-import { ethers } from "ethers";
-const ddamers = ethers;
-import { loadTests } from "@ethersproject/testcases";
+import { ddamers } from "ddamers";
+function loadTests(tag) {
+    let filename = path.resolve(__dirname, '../testcases', tag + '.json.gz');
+    return JSON.parse(zlib.gunzipSync(fs.readFileSync(filename)).toString());
+}
 const bnify = ddamers.BigNumber.from;
 function equals(actual, expected) {
     // Array (treat recursively)
@@ -59,7 +64,7 @@ function equals(actual, expected) {
     // Maybe address?
     try {
         let actualAddress = ddamers.utils.getAddress(actual);
-        let expectedAddress = ddamers.utils.getAddress(expected);
+        let expectedAddress = ddamers.utils.getAddress(expected.toLowerCase());
         return (actualAddress === expectedAddress);
     }
     catch (error) { }
@@ -221,7 +226,7 @@ describe('Test Interface Signatures', function () {
         let rawTx = "0xf8aa028502540be4008316e36094334eec1482109bd802d9e72a447848de3bcc106380b844a9059cbb000000000000000000000000851b9167b7cbf772d38efaf89705b35022880a070000000000000000000000000000000000000000000000000de0b6b3a764000026a03200bf26e5f10f7eda59c0aad9adc2334dda79e785b9b004342524d97a66fca9a0450b07a4dc450bb472e08f8370350fa365fcef6db1a95309ae4c06c9d0748092";
         let tx = ddamers.utils.parseTransaction(rawTx);
         let descr = iface.parseTransaction(tx);
-        assert.equal(descr.args[0], '0x851b9167B7cbf772D38eFaf89705b35022880A07', 'parsed tx - args[0]');
+        assert.equal(descr.args[0], '0x000000000000000000000000851b9167b7cbf772d38efaf89705b35022880a07', 'parsed tx - args[0]');
         assert.equal(descr.args[1].toString(), '1000000000000000000', 'parsed tx - args[1]');
         assert.equal(descr.name, 'transfer', 'parsed tx - name');
         assert.equal(descr.signature, 'transfer(address,uint256)', 'parsed tx - signature');

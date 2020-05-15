@@ -1,7 +1,6 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-var ethers_1 = require("ethers");
-var ddamers = ethers_1.ethers;
+var ddamers_1 = require("ddamers");
 function randomBytes(seed, lower, upper) {
     if (!upper) {
         upper = lower;
@@ -9,17 +8,17 @@ function randomBytes(seed, lower, upper) {
     if (upper === 0 && upper === lower) {
         return new Uint8Array(0);
     }
-    var result = ddamers.utils.arrayify(ddamers.utils.keccak256(ddamers.utils.toUtf8Bytes(seed)));
+    var result = ddamers_1.ddamers.utils.arrayify(ddamers_1.ddamers.utils.keccak256(ddamers_1.ddamers.utils.toUtf8Bytes(seed)));
     while (result.length < upper) {
-        result = ddamers.utils.concat([result, ddamers.utils.keccak256(ddamers.utils.concat([seed, result]))]);
+        result = ddamers_1.ddamers.utils.concat([result, ddamers_1.ddamers.utils.keccak256(ddamers_1.ddamers.utils.concat([seed, result]))]);
     }
-    var top = ddamers.utils.arrayify(ddamers.utils.keccak256(result));
+    var top = ddamers_1.ddamers.utils.arrayify(ddamers_1.ddamers.utils.keccak256(result));
     var percent = ((top[0] << 16) | (top[1] << 8) | top[2]) / 0x01000000;
     return result.slice(0, lower + Math.floor((upper - lower) * percent));
 }
 exports.randomBytes = randomBytes;
 function randomHexString(seed, lower, upper) {
-    return ddamers.utils.hexlify(randomBytes(seed, lower, upper));
+    return ddamers_1.ddamers.utils.hexlify(randomBytes(seed, lower, upper));
 }
 exports.randomHexString = randomHexString;
 function randomNumber(seed, lower, upper) {

@@ -1,7 +1,6 @@
 'use strict';
 
-import { ethers } from "ethers";
-const ddamers = ethers;
+import { ddamers } from "ddamers";
 
 function randomBytes(seed: string, lower: number, upper?: number): Uint8Array {
     if (!upper) { upper = lower; }

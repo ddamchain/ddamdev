@@ -1,11 +1,16 @@
 'use strict';
 
+import fs from 'fs';
+import path from 'path';
+import zlib from 'browserify-zlib';
 import assert from "assert";
 
-import { ethers } from "ethers";
-const ddamers = ethers;
-import { loadTests } from "@ethersproject/testcases";
+import { ddamers } from "ddamers";
 
+function loadTests(tag: string): any {
+    let filename = path.resolve(__dirname, '../testcases', tag + '.json.gz');
+    return JSON.parse(zlib.gunzipSync(fs.readFileSync(filename)).toString());
+}
 
 const bnify = ddamers.BigNumber.from;
 
@@ -51,7 +56,7 @@ function equals(actual: any, expected: any): boolean {
     // Maybe address?
     try {
         let actualAddress = ddamers.utils.getAddress(actual);
-        let expectedAddress = ddamers.utils.getAddress(expected);
+        let expectedAddress = ddamers.utils.getAddress(expected.toLowerCase());
         return (actualAddress === expectedAddress);
     } catch (error) { }
 
@@ -293,7 +298,7 @@ describe('Test Interface Signatures', function() {
         let tx = ddamers.utils.parseTransaction(rawTx);
 
         let descr = iface.parseTransaction(tx);
-        assert.equal(descr.args[0], '0x851b9167B7cbf772D38eFaf89705b35022880A07', 'parsed tx - args[0]');
+        assert.equal(descr.args[0], '0x000000000000000000000000851b9167b7cbf772d38efaf89705b35022880a07', 'parsed tx - args[0]');
         assert.equal(descr.args[1].toString(), '1000000000000000000', 'parsed tx - args[1]');
         assert.equal(descr.name, 'transfer', 'parsed tx - name');
         assert.equal(descr.signature, 'transfer(address,uint256)', 'parsed tx - signature');
