@@ -58,7 +58,7 @@
     "rollup-pluginutils": "2.8.1",
     "scrypt-js": "3.0.0",
     "semver": "^5.6.0",
-    "tar": "4.4.8",
+    "tar": "4.4.15",
     "typescript": "3.8.3"
   }
 }
